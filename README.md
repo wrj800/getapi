@@ -47,6 +47,9 @@ UPSTASH_REDIS_REST_URL=...
 UPSTASH_REDIS_REST_TOKEN=...
 ```
 
+如果 Vercel Marketplace 自动生成了带前缀的变量，例如
+`UPSTASH_REDIS_REST_KV_REST_API_URL` / `UPSTASH_REDIS_REST_KV_REST_API_TOKEN`，本项目也会自动识别。
+
 ## 可选环境变量
 
 ```text

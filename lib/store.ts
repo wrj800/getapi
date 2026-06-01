@@ -1,6 +1,6 @@
 export class StoreNotConfiguredError extends Error {
   constructor() {
-    super("未配置持久化存储。请在 Vercel 环境变量里设置 KV_REST_API_URL/KV_REST_API_TOKEN 或 UPSTASH_REDIS_REST_URL/UPSTASH_REDIS_REST_TOKEN。");
+    super("未配置持久化存储。请在 Vercel 环境变量里设置 KV/Upstash Redis REST URL 和 TOKEN。");
   }
 }
 
@@ -9,9 +9,19 @@ type RedisPayload<T> = {
   error?: string;
 };
 
-function getRedisConfig() {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+export function getRedisConfig() {
+  const url =
+    process.env.KV_REST_API_URL ||
+    process.env.UPSTASH_REDIS_REST_URL ||
+    process.env.UPSTASH_REDIS_REST_KV_REST_API_URL ||
+    process.env.UPSTASH_REDIS_REST_KV_URL ||
+    "";
+  const token =
+    process.env.KV_REST_API_TOKEN ||
+    process.env.UPSTASH_REDIS_REST_TOKEN ||
+    process.env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN ||
+    process.env.UPSTASH_REDIS_REST_KV_REST_API_READ_ONLY_TOKEN ||
+    "";
   return { url, token };
 }
 
